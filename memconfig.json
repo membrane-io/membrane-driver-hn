@@ -1,0 +1,241 @@
+{
+  "dependencies": {
+    "http": "http:"
+  },
+  "expressions": {
+    "item": {
+      "description": "HN Item",
+      "type": "url",
+      "searchIn": "https://news.ycombinator.com",
+      "regex": "https://news.ycombinator.com/item\\?id=[0-9]+$"
+    },
+    "user": {
+      "description": "HN User",
+      "type": "url",
+      "searchIn": "https://news.ycombinator.com",
+      "regex": "https://news.ycombinator.com/user\\?id=[a-zA-Z0-9-_]+$"
+    }
+  },
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Hacker News official API (Firebase)",
+        "fields": [
+          {
+            "name": "items",
+            "type": "ItemCollection",
+            "description": "The HN item collection (posts, comments, jobs, etc.)"
+          },
+          {
+            "name": "users",
+            "type": "UserCollection"
+          },
+          {
+            "name": "status",
+            "type": "String"
+          },
+          {
+            "name": "parse",
+            "type": "List",
+            "ofType": {
+              "type": "Ref",
+              "ofType": "Item"
+            },
+            "hints": { "hidden": true },
+            "params": [
+              {
+                "name": "name",
+                "type": "String"
+              },
+              {
+                "name": "value",
+                "type": "String"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "ItemCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Item",
+            "params": [
+              {
+                "name": "id",
+                "type": "Int"
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "ItemPage",
+            "params": [
+              {
+                "name": "page",
+                "type": "Int"
+              },
+              {
+                "name": "pageSize",
+                "type": "Int"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "ItemPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Item"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "ItemPage"
+          }
+        ]
+      },
+      {
+        "name": "UserCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "User",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          }
+        ],
+        "actions": []
+      },
+      {
+        "name": "Item",
+        "fields": [
+          {
+            "name": "id",
+            "type": "Int"
+          },
+          {
+            "name": "deleted",
+            "type": "Boolean"
+          },
+          {
+            "name": "type",
+            "type": "String"
+          },
+          {
+            "name": "by",
+            "type": "String"
+          },
+          {
+            "name": "time",
+            "type": "Int"
+          },
+          {
+            "name": "text",
+            "type": "String",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "dead",
+            "type": "Boolean"
+          },
+          {
+            "name": "parent",
+            "type": "Item"
+          },
+          {
+            "name": "kids",
+            "type": "List",
+            "ofType": "Item"
+          },
+          {
+            "name": "url",
+            "type": "String"
+          },
+          {
+            "name": "score",
+            "type": "Int"
+          },
+          {
+            "name": "title",
+            "type": "String",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "descendants",
+            "type": "Int"
+          }
+        ]
+      },
+      {
+        "name": "User",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "about",
+            "type": "String",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "created",
+            "type": "Int"
+          },
+          {
+            "name": "karma",
+            "type": "Int"
+          },
+          {
+            "name": "submitted",
+            "type": "UserItemPage",
+            "params": [
+              {
+                "name": "page",
+                "type": "Int"
+              },
+              {
+                "name": "pageSize",
+                "type": "Int"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "UserItemPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Item"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "UserItemPage"
+          }
+        ]
+      }
+    ]
+  }
+}
