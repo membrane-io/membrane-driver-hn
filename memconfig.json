@@ -42,7 +42,9 @@
               "type": "Ref",
               "ofType": "Item"
             },
-            "hints": { "hidden": true },
+            "hints": {
+              "hidden": true
+            },
             "params": [
               {
                 "name": "name",
@@ -76,6 +78,10 @@
               {
                 "name": "page",
                 "type": "Int"
+              },
+              {
+                "name": "topic",
+                "type": "String"
               },
               {
                 "name": "pageSize",
