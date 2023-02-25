@@ -25,6 +25,7 @@ async function getAlgolia(path: string) {
 export const Root = {
   items() { return {}; },
   users() { return {}; },
+  stories() { return {}; },
   status() {
     return 'Ready';
   },
@@ -111,28 +112,36 @@ export const User = {
 
 export const ItemCollection = {
   async one({ args }) {
-    return getApi(`/item/${args.id}.json`)
+    return getApi(`/item/${args.id}.json`);
   },
 
   page: async ({ self, args }) => {
     const page = Math.max(args.page ?? 1, 1);
-    const maxItem = await getApi('maxitem.json');
     const pageSize = Math.max(1, Math.min(25, args.pageSize ?? 15));
-    const start = maxItem - (page - 1) * pageSize;
+    let promises: Promise<any>[] = [];
+    if (args.topic) {
+      const startIndex = (page - 1) * pageSize;
+      const posts = await getApi(`/${args.topic}stories.json`);
 
-    const promises : Promise<any>[] = [];
-    for (let i = 0; i < pageSize; i++) {
-      promises.push(getApi(`/item/${start - i}.json`));
+      promises = posts.slice(startIndex, startIndex + pageSize).map((id) => {
+        return getApi(`/item/${id}.json`);
+      });
+    } else {
+      const maxItem = await getApi("maxitem.json");
+      const start = maxItem - (page - 1) * pageSize;
+
+      for (let i = 0; i < pageSize; i++) {
+        promises.push(getApi(`/item/${start - i}.json`));
+      }
     }
     const items = await Promise.all(promises);
-
     return { items, next: self.page({ page: page + 1 }) };
     // const { author } = context;
     // const res = await getAlgolia(`search_by_date?tags=author_${author}`);
     // const items = res.hits;
     // return { items }
-  }
-}
+  },
+};
 
 export const UserItemCollection = {
   async one({ args }) {
