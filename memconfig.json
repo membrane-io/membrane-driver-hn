@@ -55,6 +55,10 @@
                 "type": "String"
               }
             ]
+          },
+          {
+            "name": "stories",
+            "type": "ItemCollection"
           }
         ]
       },
@@ -77,15 +81,18 @@
             "params": [
               {
                 "name": "page",
-                "type": "Int"
+                "type": "Int",
+                "optional": true
               },
               {
                 "name": "topic",
-                "type": "String"
+                "type": "String",
+                "optional": true
               },
               {
                 "name": "pageSize",
-                "type": "Int"
+                "type": "Int",
+                "optional": true
               }
             ]
           }
@@ -120,7 +127,12 @@
             ]
           }
         ],
-        "actions": []
+        "actions": [
+          {
+            "name": "create",
+            "type": "String"
+          }
+        ]
       },
       {
         "name": "Item",
@@ -239,6 +251,19 @@
             "name": "next",
             "type": "Ref",
             "ofType": "UserItemPage"
+          }
+        ]
+      },
+      {
+        "name": "UserItemCollection",
+        "fields": [
+          {
+            "name": "page",
+            "type": "String"
+          },
+          {
+            "name": "one",
+            "type": "String"
           }
         ]
       }
