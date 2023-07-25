@@ -59,6 +59,10 @@
           {
             "name": "stories",
             "type": "ItemCollection"
+          },
+          {
+            "name": "tests",
+            "type": "Tests"
           }
         ]
       },
@@ -264,6 +268,19 @@
           {
             "name": "one",
             "type": "String"
+          }
+        ]
+      },
+      {
+        "name": "Tests",
+        "actions": [
+          {
+            "name": "testGetStories",
+            "type": "Boolean"
+          },
+          {
+            "name": "testGetItems",
+            "type": "Boolean"
           }
         ]
       }
