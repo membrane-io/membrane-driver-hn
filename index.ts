@@ -48,6 +48,18 @@ export const Root = {
     }
     return [];
   },
+  tests() { return {}; },
+}
+
+export const Tests = {
+  testGetStories: async () => {
+    const stories = await root.stories.page.items.$query(`{ id }`);
+    return Array.isArray(stories) && (stories.length === 0 || stories.length > 0);
+  },  
+  testGetItems: async () => {
+    const items = await root.items.page.items.$query(`{ id }`);
+    return Array.isArray(items) && (items.length === 0 || items.length > 0);
+  },
 }
 
 export const Item = {
