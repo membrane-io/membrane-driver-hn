@@ -58,7 +58,7 @@ export const Tests = {
   },  
   testGetItems: async () => {
     const items = await root.items.page.items.$query(`{ id }`);
-    return Array.isArray(items) && (items.length === 0 || items.length > 0);
+    return Array.isArray(items);
   },
 }
 
