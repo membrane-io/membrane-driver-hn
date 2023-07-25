@@ -54,7 +54,7 @@ export const Root = {
 export const Tests = {
   testGetStories: async () => {
     const stories = await root.stories.page.items.$query(`{ id }`);
-    return Array.isArray(stories) && (stories.length === 0 || stories.length > 0);
+    return Array.isArray(stories);
   },  
   testGetItems: async () => {
     const items = await root.items.page.items.$query(`{ id }`);
