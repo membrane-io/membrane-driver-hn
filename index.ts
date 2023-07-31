@@ -22,6 +22,16 @@ async function getAlgolia(path: string) {
   return JSON.parse(json.body!);
 }
 
+// Determines if a query includes any fields that require fetching a given resource. Simple fields is an array of the
+// fields that can be resolved without fetching,typically just "id" but it depends on what the API includes in
+// denormalized responses (i.e. responses that embed related objects).
+const shouldFetch = (info: any, simpleFields: string[]) =>
+  info.fieldNodes
+    .flatMap(({ selectionSet: { selections } }) => {
+      return selections;
+    })
+    .some(({ name: { value } }) => !simpleFields.includes(value));
+
 export const Root = {
   items() {
     return {};
@@ -111,25 +121,25 @@ export const UserCollection = {
 };
 
 export const User = {
-  async submitted({ obj, args, self }) {
+  async submitted({ obj, args, self, info }) {
     const page = Math.max(args.page ?? 1, 1);
     const pageSize = Math.max(1, Math.min(25, args.pageSize ?? 15));
     const startIndex = (page - 1) * pageSize;
 
-    const promises = obj.submitted
-      .slice(startIndex, startIndex + pageSize)
-      .map((id) => {
-        return getApi(`/item/${id}.json`);
-      });
+    const ids = obj.submitted.slice(startIndex, startIndex + pageSize);
+    return { items: ids, next: self.submitted({ page: page + 1 }) };
+  },
+};
+
+export const UserItemPage = {
+  async items({ obj, args, self, info }) {
+    if (!shouldFetch(info, ["id"])) {
+      // No need to fetch if query is only asking for item IDs
+      return obj.items.map((id) => ({ id }));
+    }
+    const promises = obj.items.map((id) => getApi(`item/${id}.json`));
     const items = await Promise.all(promises);
-
-    return { items, next: self.submitted({ page: page + 1 }) };
-    // return { submitted: obj.submitted };
-    // // const author = obj.id;
-
-    // return obj.submitted &&
-    //   // Promise.all(obj.submitted.slice(0, 5).map((id) => apiGet(`/item/${id}.json`)))
-    //   Promise.all(obj.submitted.slice(0, 10).map((id) => ItemCollection.one({ args: { id } })))
+    return items;
   },
 };
 
