@@ -1,4 +1,4 @@
-import { root, nodes, state } from 'membrane';
+import { root, nodes, state } from "membrane";
 
 // Sometimes we have to find the correct userId by hitting the site. We keep the actual user IDs here so we don't have
 // to hit the site for the same user more than once
@@ -6,28 +6,34 @@ state.actualUserIds = state.actualUserIds || {};
 
 async function getApi(path: string) {
   const url = `https://hacker-news.firebaseio.com/v0/${path}`;
-  const json = await nodes.http.get({ url, headers: "{}", }).$query(`{ body }`);
-  return JSON.parse(json.body!)
+  const json = await nodes.http.get({ url, headers: "{}" }).$query(`{ body }`);
+  return JSON.parse(json.body!);
 }
 
 async function siteGet(path: string) {
   const url = `https://news.ycombinator.com/${path}`;
-  const html = await nodes.http.get({ url, headers: "{}", }).$query(`{ body }`);
+  const html = await nodes.http.get({ url, headers: "{}" }).$query(`{ body }`);
   return html.body!;
 }
 
 async function getAlgolia(path: string) {
   const url = `https://hn.algolia.com/api/v1/${path}`;
-  const json = await nodes.http.get({ url, headers: "{}", }).$query(`{ body }`);
-  return JSON.parse(json.body!)
+  const json = await nodes.http.get({ url, headers: "{}" }).$query(`{ body }`);
+  return JSON.parse(json.body!);
 }
 
 export const Root = {
-  items() { return {}; },
-  users() { return {}; },
-  stories() { return {}; },
+  items() {
+    return {};
+  },
+  users() {
+    return {};
+  },
+  stories() {
+    return {};
+  },
   status() {
-    return 'Ready';
+    return "Ready";
   },
   parse({ args: { name, value } }) {
     switch (name) {
@@ -48,24 +54,26 @@ export const Root = {
     }
     return [];
   },
-  tests() { return {}; },
-}
+  tests() {
+    return {};
+  },
+};
 
 export const Tests = {
   testGetStories: async () => {
     const stories = await root.stories.page.items.$query(`{ id }`);
     return Array.isArray(stories);
-  },  
+  },
   testGetItems: async () => {
     const items = await root.items.page.items.$query(`{ id }`);
     return Array.isArray(items);
   },
-}
+};
 
 export const Item = {
   async parent({ obj }) {
     if (obj.parent) {
-      return getApi(`/item/${obj.parent}.json`)
+      return getApi(`/item/${obj.parent}.json`);
       // return ItemCollection.one({ args: { id: obj.parent }});
     }
   },
@@ -76,30 +84,31 @@ export const Item = {
     return self;
   },
   async kids({ obj, generateSubquery }) {
-    return obj.kids &&
+    return (
+      obj.kids &&
       Promise.all(obj.kids.slice(0, 5).map((id) => getApi(`/item/${id}.json`)))
-  }
-}
+    );
+  },
+};
 
 export const UserCollection = {
   async one({ args, context }) {
     let actualId = state.actualUserIds[args.id];
-    const json = await getApi(`/user/${actualId || args.id}.json`)
+    const json = await getApi(`/user/${actualId || args.id}.json`);
     if (json === null && actualId === undefined) {
       const html = await siteGet(`user?id=${args.id}`);
       const matches = html.match(new RegExp(`Profile: (${args.id})`, "i"));
-      console.log('Trying with actual username', matches?.[1]);
+      console.log("Trying with actual username", matches?.[1]);
       actualId = matches?.[1];
       state.actualUserIds[args.id] = actualId || null; // We set it to null to avoid trying again
       if (actualId) {
-        return await getApi(`/user/${actualId}.json`)
+        return await getApi(`/user/${actualId}.json`);
       }
     }
     context.userId = json?.id;
     return json;
   },
-  create: () => console.log('created user'),
-}
+};
 
 export const User = {
   async submitted({ obj, args, self }) {
@@ -107,20 +116,22 @@ export const User = {
     const pageSize = Math.max(1, Math.min(25, args.pageSize ?? 15));
     const startIndex = (page - 1) * pageSize;
 
-    const promises = obj.submitted.slice(startIndex, startIndex + pageSize).map((id) => {
-      return getApi(`/item/${id}.json`);
-    });
+    const promises = obj.submitted
+      .slice(startIndex, startIndex + pageSize)
+      .map((id) => {
+        return getApi(`/item/${id}.json`);
+      });
     const items = await Promise.all(promises);
 
     return { items, next: self.submitted({ page: page + 1 }) };
     // return { submitted: obj.submitted };
     // // const author = obj.id;
-    
+
     // return obj.submitted &&
     //   // Promise.all(obj.submitted.slice(0, 5).map((id) => apiGet(`/item/${id}.json`)))
     //   Promise.all(obj.submitted.slice(0, 10).map((id) => ItemCollection.one({ args: { id } })))
-  }
-}
+  },
+};
 
 export const ItemCollection = {
   async one({ args }) {
@@ -157,13 +168,20 @@ export const ItemCollection = {
 
 export const UserItemCollection = {
   async one({ args }) {
-    return getApi(`/item/${args.id}.json`)
+    return getApi(`/item/${args.id}.json`);
   },
+};
 
-  page: async ({ self, args }) => {
-    // const { author } = context;
-    // const res = await getAlgolia(`search_by_date?tags=author_${author}`);
-    // const items = res.hits;
-    // return { items }
-  }
-}
+// TODO: Use algolia API
+// export const UserItemCollection = {
+//   async one({ args }) {
+//     return getApi(`/item/${args.id}.json`);
+//   },
+
+//   page: async ({ self, args }) => {
+//     // const { author } = context;
+//     // const res = await getAlgolia(`search_by_date?tags=author_${author}`);
+//     // const items = res.hits;
+//     // return { items }
+//   },
+// };

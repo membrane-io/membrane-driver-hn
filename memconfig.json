@@ -233,11 +233,13 @@
             "params": [
               {
                 "name": "page",
-                "type": "Int"
+                "type": "Int",
+                "optional": true
               },
               {
                 "name": "pageSize",
-                "type": "Int"
+                "type": "Int",
+                "optional": true
               }
             ]
           }
