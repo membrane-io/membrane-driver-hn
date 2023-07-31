@@ -87,13 +87,13 @@ export const Item = {
       // return ItemCollection.one({ args: { id: obj.parent }});
     }
   },
-  async gref({ self, obj, generateSubquery }) {
+  async gref({ self, obj }) {
     if (obj && typeof obj.id === "number") {
       return root.items.one({ id: obj.id });
     }
     return self;
   },
-  async kids({ obj, generateSubquery }) {
+  async kids({ obj }) {
     return (
       obj.kids &&
       Promise.all(obj.kids.slice(0, 5).map((id) => getApi(`/item/${id}.json`)))
@@ -121,7 +121,7 @@ export const UserCollection = {
 };
 
 export const User = {
-  async submitted({ obj, args, self, info }) {
+  async submitted({ obj, args, self }) {
     const page = Math.max(args.page ?? 1, 1);
     const pageSize = Math.max(1, Math.min(25, args.pageSize ?? 15));
     const startIndex = (page - 1) * pageSize;
@@ -132,7 +132,7 @@ export const User = {
 };
 
 export const UserItemPage = {
-  async items({ obj, args, self, info }) {
+  async items({ obj, info }) {
     if (!shouldFetch(info, ["id"])) {
       // No need to fetch if query is only asking for item IDs
       return obj.items.map((id) => ({ id }));
