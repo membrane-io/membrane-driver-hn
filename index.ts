@@ -45,7 +45,7 @@ export const Root = {
   status() {
     return "Ready";
   },
-  parse({ args: { name, value } }) {
+  parse({ name, value }) {
     switch (name) {
       case "item": {
         const id = value.match(/id=([0-9]+)$/)?.[1];
@@ -81,19 +81,19 @@ export const Tests = {
 };
 
 export const Item = {
-  async parent({ obj }) {
+  async parent(_, { obj }) {
     if (obj.parent) {
       return getApi(`/item/${obj.parent}.json`);
       // return ItemCollection.one({ args: { id: obj.parent }});
     }
   },
-  async gref({ self, obj }) {
+  async gref(_, { self, obj }) {
     if (obj && typeof obj.id === "number") {
       return root.items.one({ id: obj.id });
     }
     return self;
   },
-  async kids({ obj }) {
+  async kids(_, { obj }) {
     return (
       obj.kids &&
       Promise.all(obj.kids.slice(0, 5).map((id) => getApi(`/item/${id}.json`)))
@@ -102,7 +102,7 @@ export const Item = {
 };
 
 export const UserCollection = {
-  async one({ args, context }) {
+  async one(args, { context }) {
     let actualId = state.actualUserIds[args.id];
     const json = await getApi(`/user/${actualId || args.id}.json`);
     if (json === null && actualId === undefined) {
@@ -121,7 +121,7 @@ export const UserCollection = {
 };
 
 export const User = {
-  async submitted({ obj, args, self }) {
+  async submitted(args, { obj, self }) {
     const page = Math.max(args.page ?? 1, 1);
     const pageSize = Math.max(1, Math.min(25, args.pageSize ?? 15));
     const startIndex = (page - 1) * pageSize;
@@ -132,7 +132,7 @@ export const User = {
 };
 
 export const UserItemPage = {
-  async items({ obj, info }) {
+  async items(_, { obj, info }) {
     if (!shouldFetch(info, ["id"])) {
       // No need to fetch if query is only asking for item IDs
       return obj.items.map((id) => ({ id }));
@@ -144,11 +144,11 @@ export const UserItemPage = {
 };
 
 export const ItemCollection = {
-  async one({ args }) {
+  async one(args) {
     return getApi(`/item/${args.id}.json`);
   },
 
-  page: async ({ self, args }) => {
+  page: async (args, { self }) => {
     const page = Math.max(args.page ?? 1, 1);
     const pageSize = Math.max(1, Math.min(25, args.pageSize ?? 15));
     let promises: Promise<any>[] = [];
@@ -177,7 +177,7 @@ export const ItemCollection = {
 };
 
 export const UserItemCollection = {
-  async one({ args }) {
+  async one(args) {
     return getApi(`/item/${args.id}.json`);
   },
 };
