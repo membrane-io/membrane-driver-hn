@@ -84,7 +84,6 @@ export const Item = {
   async parent(_, { obj }) {
     if (obj.parent) {
       return getApi(`/item/${obj.parent}.json`);
-      // return ItemCollection.one({ args: { id: obj.parent }});
     }
   },
   async gref(_, { self, obj }) {
