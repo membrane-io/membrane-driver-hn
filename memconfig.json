@@ -285,13 +285,13 @@
             "name": "items",
             "type": "List",
             "ofType": "Item",
-            "description": "List of items submitted by the user on the current page."
+            "description": "List of Hacker News items submitted by the user on the current page"
           },
           {
             "name": "next",
             "type": "Ref",
             "ofType": "UserItemPage",
-            "description": "Reference to the next page of items submitted by the user."
+            "description": "Reference to the next page of user's submitted items"
           }
         ],
         "description": "UserItemPage type provides a paginated view of items submitted by a Hacker News user, including navigation to subsequent pages."
