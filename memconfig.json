@@ -301,11 +301,13 @@
         "fields": [
           {
             "name": "page",
-            "type": "String"
+            "type": "String",
+            "description": "Enables retrieval of a paginated collection of a user's submitted items."
           },
           {
             "name": "one",
-            "type": "String"
+            "type": "String",
+            "description": "Allows for fetching a single item from a user's collection by its identifier."
           }
         ],
         "description": "UserItemCollection type is designed to manage collections of items associated with a specific Hacker News user, such as posted stories or comments."
