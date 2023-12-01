@@ -20,20 +20,22 @@
     "types": [
       {
         "name": "Root",
-        "description": "Hacker News official API (Firebase)",
+        "description": "Root type represents the base entity of Hacker News API. It provides access to various collections and endpoints such as item and user collections, status checks, and test entities.",
         "fields": [
           {
             "name": "items",
             "type": "ItemCollection",
-            "description": "The HN item collection (posts, comments, jobs, etc.)"
+            "description": "This field represents the HN item collection which includes posts, comments, jobs, etc."
           },
           {
             "name": "users",
-            "type": "UserCollection"
+            "type": "UserCollection",
+            "description": "This field represents the HN user collection."
           },
           {
             "name": "status",
-            "type": "String"
+            "type": "String",
+            "description": "The current status of the Hacker News API."
           },
           {
             "name": "parse",
@@ -54,15 +56,18 @@
                 "name": "value",
                 "type": "String"
               }
-            ]
+            ],
+            "description": "A hidden field used for parsing items."
           },
           {
             "name": "stories",
-            "type": "ItemCollection"
+            "type": "ItemCollection",
+            "description": "A collection of top, new, and best stories from Hacker News."
           },
           {
             "name": "tests",
-            "type": "Tests"
+            "type": "Tests",
+            "description": "An object containing tests for the Hacker News API."
           }
         ]
       },
@@ -100,7 +105,8 @@
               }
             ]
           }
-        ]
+        ],
+        "description": "ItemCollection type is a container for Hacker News items such as posts, comments, and jobs, allowing retrieval of individual items or paginated lists."
       },
       {
         "name": "ItemPage",
@@ -115,7 +121,8 @@
             "type": "Ref",
             "ofType": "ItemPage"
           }
-        ]
+        ],
+        "description": "ItemPage type represents a page of Hacker News items, with references to individual items and the next page of items."
       },
       {
         "name": "UserCollection",
@@ -136,7 +143,8 @@
             "name": "create",
             "type": "String"
           }
-        ]
+        ],
+        "description": "UserCollection type provides functionalities to access individual user profiles within Hacker News by their unique identifiers or to create new user profiles."
       },
       {
         "name": "Item",
@@ -200,7 +208,8 @@
             "name": "descendants",
             "type": "Int"
           }
-        ]
+        ],
+        "description": "Item type encapsulates a Hacker News item which can be a post, comment, or a job listing. It includes details like identification, ownership, score, and associated comments or children."
       },
       {
         "name": "User",
@@ -243,7 +252,8 @@
               }
             ]
           }
-        ]
+        ],
+        "description": "User type represents a Hacker News user profile containing personal and activity information such as identity, karma points, and content submissions."
       },
       {
         "name": "UserItemPage",
@@ -258,7 +268,8 @@
             "type": "Ref",
             "ofType": "UserItemPage"
           }
-        ]
+        ],
+        "description": "UserItemPage type provides a paginated view of items submitted by a Hacker News user, including navigation to subsequent pages."
       },
       {
         "name": "UserItemCollection",
@@ -271,7 +282,8 @@
             "name": "one",
             "type": "String"
           }
-        ]
+        ],
+        "description": "UserItemCollection type is designed to manage collections of items associated with a specific Hacker News user, such as posted stories or comments."
       },
       {
         "name": "Tests",
@@ -284,7 +296,8 @@
             "name": "testGetItems",
             "type": "Boolean"
           }
-        ]
+        ],
+        "description": "Tests type provides actions for testing the functionality of the Hacker News API endpoints, such as retrieving stories or items."
       }
     ]
   }
