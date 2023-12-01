@@ -139,7 +139,8 @@
                 "name": "id",
                 "type": "String"
               }
-            ]
+            ],
+            "description": "Retrieves a specific Hacker News user profile by their unique username."
           }
         ],
         "actions": [
