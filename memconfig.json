@@ -238,7 +238,7 @@
             "hints": {
               "primary": true
             },
-            "description": "The unique username of the Hacker News user."
+            "description": "Unique username of the Hacker News user"
           },
           {
             "name": "about",
@@ -246,17 +246,17 @@
             "hints": {
               "primary": true
             },
-            "description": "A brief description or bio provided by the user."
+            "description": "Brief bio or description provided by the user"
           },
           {
             "name": "created",
             "type": "Int",
-            "description": "The timestamp indicating when the user's account was created."
+            "description": "Timestamp of the Hacker News user's account creation"
           },
           {
             "name": "karma",
             "type": "Int",
-            "description": "A score reflecting the user's contributions to the Hacker News community."
+            "description": "Score representing the user's contributions to Hacker News"
           },
           {
             "name": "submitted",
@@ -273,7 +273,7 @@
                 "optional": true
               }
             ],
-            "description": "Paginated list of items submitted by the user, including posts and comments."
+            "description": "Paginated list of the user's submitted items on Hacker News"
           }
         ],
         "description": "User type represents a Hacker News user profile containing personal and activity information such as identity, karma points, and content submissions."
