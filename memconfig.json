@@ -140,7 +140,7 @@
                 "type": "String"
               }
             ],
-            "description": "Retrieves a specific Hacker News user profile by their unique username."
+            "description": "Retrieves a single Hacker News user profile by username"
           }
         ],
         "actions": [
