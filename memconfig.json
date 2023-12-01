@@ -157,27 +157,27 @@
           {
             "name": "id",
             "type": "Int",
-            "description": "The unique identifier of the Hacker News item."
+            "description": "Unique identifier of a Hacker News item"
           },
           {
             "name": "deleted",
             "type": "Boolean",
-            "description": "Indicates whether the item has been deleted from Hacker News."
+            "description": "Status indicating if the Hacker News item is deleted"
           },
           {
             "name": "type",
             "type": "String",
-            "description": "Specifies the type of the item (e.g., post, comment, job)."
+            "description": "Type of the Hacker News item (post, comment, job, etc.)"
           },
           {
             "name": "by",
             "type": "String",
-            "description": "The username of the individual who submitted the item."
+            "description": "Username of the submitter of the Hacker News item"
           },
           {
             "name": "time",
             "type": "Int",
-            "description": "The timestamp of when the item was submitted to Hacker News."
+            "description": "Timestamp when the Hacker News item was submitted"
           },
           {
             "name": "text",
@@ -185,33 +185,33 @@
             "hints": {
               "primary": true
             },
-            "description": "The text content of the item, such as a comment or story description."
+            "description": "Text content of the Hacker News item"
           },
           {
             "name": "dead",
             "type": "Boolean",
-            "description": "Reflects whether the item is no longer active or 'dead' on Hacker News."
+            "description": "Indicates if the Hacker News item is no longer active"
           },
           {
             "name": "parent",
             "type": "Item",
-            "description": "The parent item, typically for a comment or reply, linking to the original post or comment."
+            "description": "Parent item of this Hacker News item (for comments/replies)"
           },
           {
             "name": "kids",
             "type": "List",
             "ofType": "Item",
-            "description": "A list of child items, commonly replies or comments to the main item."
+            "description": "List of child items linked to this Hacker News item"
           },
           {
             "name": "url",
             "type": "String",
-            "description": "The URL of the original source for the item, if provided."
+            "description": "Original source URL for the Hacker News item"
           },
           {
             "name": "score",
             "type": "Int",
-            "description": "The net score of the item derived from upvotes minus downvotes."
+            "description": "Net score of the Hacker News item"
           },
           {
             "name": "title",
@@ -219,12 +219,12 @@
             "hints": {
               "primary": true
             },
-            "description": "The title of the item, commonly used for stories and job listings."
+            "description": "Title of the Hacker News item (stories, jobs)"
           },
           {
             "name": "descendants",
             "type": "Int",
-            "description": "The count of all sub-items associated with this item, such as comments and replies."
+            "description": "Count of all sub-items (comments, replies) associated with the Hacker News item"
           }
         ],
         "description": "Item type encapsulates a Hacker News item which can be a post, comment, or a job listing. It includes details like identification, ownership, score, and associated comments or children."
