@@ -317,11 +317,13 @@
         "actions": [
           {
             "name": "testGetStories",
-            "type": "Boolean"
+            "type": "Boolean",
+            "description": "Tests the ability to retrieve stories from Hacker News."
           },
           {
             "name": "testGetItems",
-            "type": "Boolean"
+            "type": "Boolean",
+            "description": "Tests the retrieval of individual items from Hacker News."
           }
         ],
         "description": "Tests type provides actions for testing the functionality of the Hacker News API endpoints, such as retrieving stories or items."
