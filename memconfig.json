@@ -25,12 +25,12 @@
           {
             "name": "items",
             "type": "ItemCollection",
-            "description": "Access point to the collection of Hacker News items such as stories, comments, and polls."
+            "description": "Collection of Hacker News items"
           },
           {
             "name": "users",
             "type": "UserCollection",
-            "description": "Provides access to the user profiles and their associated content on Hacker News."
+            "description": "Collection of Hacker News users"
           },
           {
             "name": "status",
@@ -62,7 +62,7 @@
           {
             "name": "stories",
             "type": "ItemCollection",
-            "description": "Curated collection of the top, new, and best stories published on Hacker News."
+            "description": "Collection of top, new, and best stories from Hacker News"
           },
           {
             "name": "tests",
