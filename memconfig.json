@@ -82,7 +82,8 @@
                 "name": "id",
                 "type": "Int"
               }
-            ]
+            ],
+            "description": "Retrieves a specific Hacker News item by its unique identifier."
           },
           {
             "name": "page",
@@ -103,7 +104,8 @@
                 "type": "Int",
                 "optional": true
               }
-            ]
+            ],
+            "description": "Provides a paginated view of Hacker News items, supporting customizable topics and page sizes."
           }
         ],
         "description": "ItemCollection type is a container for Hacker News items such as posts, comments, and jobs, allowing retrieval of individual items or paginated lists."
