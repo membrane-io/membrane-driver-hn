@@ -25,17 +25,17 @@
           {
             "name": "items",
             "type": "ItemCollection",
-            "description": "This field represents the HN item collection which includes posts, comments, jobs, etc."
+            "description": "Access point to the collection of Hacker News items such as stories, comments, and polls."
           },
           {
             "name": "users",
             "type": "UserCollection",
-            "description": "This field represents the HN user collection."
+            "description": "Provides access to the user profiles and their associated content on Hacker News."
           },
           {
             "name": "status",
             "type": "String",
-            "description": "The current status of the Hacker News API."
+            "description": "Indicates the current operational status of the Hacker News API service."
           },
           {
             "name": "parse",
@@ -57,17 +57,17 @@
                 "type": "String"
               }
             ],
-            "description": "A hidden field used for parsing items."
+            "description": "Internal mechanism used for transforming and interpreting item data."
           },
           {
             "name": "stories",
             "type": "ItemCollection",
-            "description": "A collection of top, new, and best stories from Hacker News."
+            "description": "Curated collection of the top, new, and best stories published on Hacker News."
           },
           {
             "name": "tests",
             "type": "Tests",
-            "description": "An object containing tests for the Hacker News API."
+            "description": "Contains test entities for evaluating and ensuring the reliability of the Hacker News API endpoints."
           }
         ]
       },
