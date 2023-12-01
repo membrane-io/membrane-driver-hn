@@ -237,22 +237,26 @@
             "type": "String",
             "hints": {
               "primary": true
-            }
+            },
+            "description": "The unique username of the Hacker News user."
           },
           {
             "name": "about",
             "type": "String",
             "hints": {
               "primary": true
-            }
+            },
+            "description": "A brief description or bio provided by the user."
           },
           {
             "name": "created",
-            "type": "Int"
+            "type": "Int",
+            "description": "The timestamp indicating when the user's account was created."
           },
           {
             "name": "karma",
-            "type": "Int"
+            "type": "Int",
+            "description": "A score reflecting the user's contributions to the Hacker News community."
           },
           {
             "name": "submitted",
@@ -268,7 +272,8 @@
                 "type": "Int",
                 "optional": true
               }
-            ]
+            ],
+            "description": "Paginated list of items submitted by the user, including posts and comments."
           }
         ],
         "description": "User type represents a Hacker News user profile containing personal and activity information such as identity, karma points, and content submissions."
