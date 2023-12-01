@@ -117,13 +117,13 @@
             "name": "items",
             "type": "List",
             "ofType": "Item",
-            "description": "List of Hacker News items present on the current page."
+            "description": "List of Hacker News items on the current page"
           },
           {
             "name": "next",
             "type": "Ref",
             "ofType": "ItemPage",
-            "description": "Reference to the next page of Hacker News items."
+            "description": "Reference to the next page in the collection of Hacker News items"
           }
         ],
         "description": "ItemPage type represents a page of Hacker News items, with references to individual items and the next page of items."
