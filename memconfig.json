@@ -156,62 +156,75 @@
         "fields": [
           {
             "name": "id",
-            "type": "Int"
+            "type": "Int",
+            "description": "The unique identifier of the Hacker News item."
           },
           {
             "name": "deleted",
-            "type": "Boolean"
+            "type": "Boolean",
+            "description": "Indicates whether the item has been deleted from Hacker News."
           },
           {
             "name": "type",
-            "type": "String"
+            "type": "String",
+            "description": "Specifies the type of the item (e.g., post, comment, job)."
           },
           {
             "name": "by",
-            "type": "String"
+            "type": "String",
+            "description": "The username of the individual who submitted the item."
           },
           {
             "name": "time",
-            "type": "Int"
+            "type": "Int",
+            "description": "The timestamp of when the item was submitted to Hacker News."
           },
           {
             "name": "text",
             "type": "String",
             "hints": {
               "primary": true
-            }
+            },
+            "description": "The text content of the item, such as a comment or story description."
           },
           {
             "name": "dead",
-            "type": "Boolean"
+            "type": "Boolean",
+            "description": "Reflects whether the item is no longer active or 'dead' on Hacker News."
           },
           {
             "name": "parent",
-            "type": "Item"
+            "type": "Item",
+            "description": "The parent item, typically for a comment or reply, linking to the original post or comment."
           },
           {
             "name": "kids",
             "type": "List",
-            "ofType": "Item"
+            "ofType": "Item",
+            "description": "A list of child items, commonly replies or comments to the main item."
           },
           {
             "name": "url",
-            "type": "String"
+            "type": "String",
+            "description": "The URL of the original source for the item, if provided."
           },
           {
             "name": "score",
-            "type": "Int"
+            "type": "Int",
+            "description": "The net score of the item derived from upvotes minus downvotes."
           },
           {
             "name": "title",
             "type": "String",
             "hints": {
               "primary": true
-            }
+            },
+            "description": "The title of the item, commonly used for stories and job listings."
           },
           {
             "name": "descendants",
-            "type": "Int"
+            "type": "Int",
+            "description": "The count of all sub-items associated with this item, such as comments and replies."
           }
         ],
         "description": "Item type encapsulates a Hacker News item which can be a post, comment, or a job listing. It includes details like identification, ownership, score, and associated comments or children."
